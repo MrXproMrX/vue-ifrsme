@@ -1,30 +1,39 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
-  <router-view/>
+    <section class="container">
+      <div class="iframe">
+        <div class="iframe__list">
+
+          <div class="iframe__video__mrx">
+            <iframe :src="videoIfrome" allowfullscreen></iframe>
+          </div>
+
+          <div class="iframe__item">
+            <Iframelist :iframes="iframes" @video="video"></Iframelist>
+          </div>
+        </div>
+      </div>
+    </section>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script>
+import Iframelist from '@/components/Iframelist.vue';
+import IframeJs from '@/data/IframeJs'
+export default {
+  components:{
+    Iframelist
+  },
 
-nav {
-  padding: 30px;
+  data(){
+    return{
+      iframes:IframeJs,
+      videoIfrome:IframeJs[0].link.props.src,
+    }
+  },
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
+  methods:{
+    video(link){
+      this.videoIfrome = link.props.src
     }
   }
 }
-</style>
+</script>
